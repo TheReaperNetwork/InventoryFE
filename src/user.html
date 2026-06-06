@@ -1,0 +1,229 @@
+<!-- user.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Modern Dashboard UI</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS FILE -->
+  <link rel="stylesheet" href="user.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <h2>MEU LABS</h2>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Inventory</a>
+      <a href="#">Purchases</a>
+      <a href="#">Reports</a>
+      <a href="#">Settings</a>
+    </nav>
+
+    <div class="logout">
+      Logout
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <h1>ADMIN DASHBOARD</h1>
+
+      <div class="profile">
+        Admin
+      </div>
+
+    </header>
+
+    <!-- CARDS -->
+    <section class="cards">
+
+      <div class="card yellow">
+        <span>Total Products</span>
+        <h2>245</h2>
+      </div>
+
+      <div class="card green">
+        <span>Products In Stock</span>
+        <h2>189</h2>
+      </div>
+
+      <div class="card red">
+        <span>Low Stock Alerts</span>
+        <h2>12</h2>
+      </div>
+
+      <div class="card blue">
+        <span>Total Purchases</span>
+        <h2>58</h2>
+      </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <section class="content-grid">
+
+      <!-- LEFT SIDE -->
+      <div class="left-content">
+
+        <!-- ALERTS -->
+        <div class="panel">
+
+          <div class="panel-title">
+            ⚠ Low Stock Alerts
+          </div>
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Stock</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>Pipette Tips</td>
+                <td>5</td>
+                <td><button>Order</button></td>
+              </tr>
+
+              <tr>
+                <td>Test Tubes</td>
+                <td>8</td>
+                <td><button>Order</button></td>
+              </tr>
+
+              <tr>
+                <td>Petri Dishes</td>
+                <td>6</td>
+                <td><button>Order</button></td>
+              </tr>
+
+              <tr>
+                <td>Reagent C</td>
+                <td>4</td>
+                <td><button>Order</button></td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <!-- RECENT ACTIVITIES -->
+        <div class="panel">
+
+          <div class="panel-title">
+            Recent Activities
+          </div>
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>User</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>3:45 PM</td>
+                <td>Admin</td>
+                <td>Backed up system data</td>
+              </tr>
+
+              <tr>
+                <td>2:10 PM</td>
+                <td>Admin</td>
+                <td>Added new product</td>
+              </tr>
+
+              <tr>
+                <td>11:40 AM</td>
+                <td>User</td>
+                <td>Withdrew Agar Powder</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="right-content">
+
+        <!-- ACTIONS -->
+        <div class="panel">
+
+          <button class="action-btn green-btn">
+            Restock Inventory
+          </button>
+
+          <button class="action-btn blue-btn">
+            Generate Report
+          </button>
+
+        </div>
+
+        <!-- LOGS -->
+        <div class="panel">
+
+          <div class="panel-title">
+            System Logs
+          </div>
+
+          <ul class="logs">
+
+            <li>Admin backed up system data</li>
+            <li>Admin added new product</li>
+            <li>User withdrew Agar Powder</li>
+            <li>Inventory report generated</li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>
