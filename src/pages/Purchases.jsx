@@ -2,6 +2,7 @@ import "../user.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
 function Purchases({ darkMode }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Purchases({ darkMode }) {
 
   const fetchPurchases = async () => {
     try {
-      const res = await fetch("http://localhost:5284/api/purchases");
+      const res = await fetch(`${API_BASE_URL}/api/purchases`);
       const data = await res.json();
       setPurchases(data);
     } catch (err) {
@@ -30,7 +31,7 @@ function Purchases({ darkMode }) {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5284/api/products");
+      const res = await fetch(`${API_BASE_URL}/api/products`);
       const data = await res.json();
       setProducts(data);
     } catch (err) {
@@ -45,7 +46,7 @@ function Purchases({ darkMode }) {
 
   const addPurchase = async () => {
     try {
-      const res = await fetch("http://localhost:5284/api/purchases", {
+      const res = await fetch(`${API_BASE_URL}/api/purchases`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

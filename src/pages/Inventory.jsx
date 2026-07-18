@@ -2,6 +2,7 @@ import "../user.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
 function Inventory({ darkMode }) {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Inventory({ darkMode }) {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5284/api/products");
+      const res = await fetch(`${API_BASE_URL}/api/products`);
       const data = await res.json();
       setProducts(data);
     } catch (err) {
@@ -39,7 +40,7 @@ function Inventory({ darkMode }) {
   const addProduct = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5284/api/products?role=Admin",
+        `${API_BASE_URL}/api/products?role=Admin`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -69,7 +70,7 @@ function Inventory({ darkMode }) {
   const deleteProduct = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:5284/api/products/${id}?role=Admin`,
+        `${API_BASE_URL}/api/products/${id}?role=Admin`,
         { method: "DELETE" }
       );
 
@@ -85,7 +86,7 @@ function Inventory({ darkMode }) {
   const addStock = async (id) => {
     try {
       const res = await fetch(
-        `http://localhost:5284/api/inventory/purchase?productId=${id}&quantity=${stockAmount}`,
+        `${API_BASE_URL}/api/inventory/purchase?productId=${id}&quantity=${stockAmount}`,
         { method: "POST" }
       );
 

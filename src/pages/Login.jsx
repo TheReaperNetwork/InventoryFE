@@ -1,6 +1,7 @@
 import "../user.css";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { API_BASE_URL } from "../config/api";
 
 function Login({ setIsLoggedIn }) {
 
@@ -17,7 +18,7 @@ function Login({ setIsLoggedIn }) {
     try {
 
       const response = await fetch(
-        "http://localhost:5284/api/auth/login",
+        `${API_BASE_URL}/api/auth/login`,
         {
           method: "POST",
 

@@ -2,6 +2,7 @@ import "../user.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
 function Withdrawals({ darkMode }) {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function Withdrawals({ darkMode }) {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5284/api/products");
+      const res = await fetch(`${API_BASE_URL}/api/products`);
       const data = await res.json();
       setProducts(data);
     } catch (err) {
@@ -61,7 +62,7 @@ function Withdrawals({ darkMode }) {
 
     try {
       const res = await fetch(
-        `http://localhost:5284/api/inventory/withdraw?productId=${selectedProduct}&quantity=${quantity}&role=${role}`,
+        `${API_BASE_URL}/api/inventory/withdraw?productId=${selectedProduct}&quantity=${quantity}&role=${role}`,
         { method: "POST" }
       );
 

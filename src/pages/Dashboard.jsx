@@ -2,6 +2,7 @@ import "../user.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
 function Dashboard({ darkMode }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Dashboard({ darkMode }) {
   // LOAD PRODUCTS
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:5284/api/products");
+      const response = await fetch(`${API_BASE_URL}/api/products`);
       const data = await response.json();
       setProducts(data);
     } catch (error) {
@@ -28,7 +29,7 @@ function Dashboard({ darkMode }) {
   // LOAD PURCHASES
   const fetchPurchases = async () => {
     try {
-      const response = await fetch("http://localhost:5284/api/purchases");
+      const response = await fetch(`${API_BASE_URL}/api/purchases`);
       const data = await response.json();
       setPurchases(data);
     } catch (error) {
