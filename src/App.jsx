@@ -16,6 +16,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Sign from "./pages/Sign";
 import Withdrawals from "./pages/Withdrawals";
+import WithdrawalHistory from "./pages/WithdrawalHistory";
 
 /* ========================= */
 /* TOAST CONTEXT             */
@@ -118,6 +119,18 @@ function App() {
             element={
               isLoggedIn ? (
                 <Withdrawals darkMode={darkMode} />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+
+          {/* WITHDRAWAL HISTORY */}
+          <Route
+            path="/withdrawal-history"
+            element={
+              isLoggedIn ? (
+                <WithdrawalHistory darkMode={darkMode} />
               ) : (
                 <Navigate to="/" />
               )

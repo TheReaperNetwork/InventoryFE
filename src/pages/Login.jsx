@@ -48,6 +48,8 @@ function Login({ setIsLoggedIn }) {
 
       localStorage.setItem("role", data.role);
 
+      localStorage.setItem("userId", data.id);
+
       localStorage.setItem("username", username);
 
       setIsLoggedIn(true);

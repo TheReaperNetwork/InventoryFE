@@ -8,10 +8,25 @@ function Withdrawals({ darkMode }) {
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role");
+  const userId = localStorage.getItem("userId");
 
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [purpose, setPurpose] = useState("");
+  const [personId, setPersonId] = useState("");
+  const [personOptions, setPersonOptions] = useState([]);
+
+  const purposeOptions = [
+    { value: "KX Pack", label: "KX Pack" },
+    { value: "AN Pack", label: "AN Pack" },
+    { value: "PD Pack", label: "PD Pack" },
+    { value: "CX Pack", label: "CX Pack" },
+    { value: "Instructor R&D usage", label: "Instructor R&D usage" },
+    { value: "Faulty/broken", label: "Faulty/broken" },
+  ];
+
+  const visiblePurposeOptions = purposeOptions;
 
   // ✅ POPUP STATE
   const [popup, setPopup] = useState({
@@ -44,8 +59,36 @@ function Withdrawals({ darkMode }) {
     }
   };
 
+  const fetchPeople = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/people`);
+
+      if (!res.ok) {
+        throw new Error("People API unavailable");
+      }
+
+      const data = await res.json();
+      const normalized = Array.isArray(data)
+        ? data
+            .filter((item) => item && (item.label || item.name || item.value || item.Name || item.id !== undefined || item.Id !== undefined))
+            .map((item) => ({
+              id: item.id ?? item.Id ?? item.value ?? "",
+              label: item.label ?? item.name ?? item.value ?? item.Name ?? "",
+            }))
+        : [];
+
+      setPersonOptions(normalized);
+      setPersonId("");
+    } catch (err) {
+      console.log(err);
+      setPersonOptions([]);
+      setPersonId("");
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
+    fetchPeople();
   }, []);
 
   const withdrawStock = async () => {
@@ -55,6 +98,14 @@ function Withdrawals({ darkMode }) {
 
     if (!product) return;
 
+    const selectedPerson = personOptions.find((option) => option.id.toString() === personId);
+    const selectedPersonLabel = selectedPerson?.label || (personId ? personId : "");
+
+    if (!purpose || !selectedPerson) {
+      showPopup("Please select both purpose and person", "error");
+      return;
+    }
+
     if (parseInt(quantity) > product.quantity) {
       showPopup("Error: too many items requested", "error");
       return;
@@ -62,7 +113,7 @@ function Withdrawals({ darkMode }) {
 
     try {
       const res = await fetch(
-        `${API_BASE_URL}/api/inventory/withdraw?productId=${selectedProduct}&quantity=${quantity}&role=${role}`,
+        `${API_BASE_URL}/api/inventory/withdraw?productId=${selectedProduct}&quantity=${quantity}&role=${role || ""}&userId=${userId || ""}&purpose=${encodeURIComponent(purpose)}&person=${encodeURIComponent(selectedPersonLabel)}`,
         { method: "POST" }
       );
 
@@ -76,6 +127,8 @@ function Withdrawals({ darkMode }) {
 
       setSelectedProduct("");
       setQuantity("");
+      setPurpose("");
+      setPersonId("");
 
       fetchProducts();
     } catch (err) {
@@ -153,15 +206,45 @@ function Withdrawals({ darkMode }) {
               onChange={(e) => setQuantity(e.target.value)}
             />
 
+            <select
+              value={purpose}
+              onChange={(e) => setPurpose(e.target.value)}
+            >
+              <option value="">Select Purpose</option>
+              {visiblePurposeOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={personId}
+              onChange={(e) => setPersonId(e.target.value)}
+            >
+              <option value="">Select Person</option>
+              {personOptions.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+
             <button
               className="primary-btn"
               onClick={withdrawStock}
-              disabled={!selectedProduct || !quantity}
+              disabled={!selectedProduct || !quantity || !purpose || !personId}
             >
               Withdraw Stock
             </button>
 
           </div>
+        </div>
+
+        <div className="history-actions">
+          <Link to="/withdrawal-history" className="secondary-btn">
+            View Withdrawal History
+          </Link>
         </div>
 
         {/* TABLE */}
